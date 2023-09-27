@@ -18,7 +18,7 @@ class ProductUser(models.Model):
 class Lesson(models.Model):
     title = models.CharField(max_length=255)
     link_to_video = models.URLField()
-    duration = models.DurationField()
+    duration = models.IntegerField()
     products = models.ManyToManyField(Product, through='LessonProduct')
 
 
@@ -30,5 +30,13 @@ class LessonProduct(models.Model):
 class LessonView(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    view_time_seconds = models.DurationField(default=0)
+    view_time_seconds = models.IntegerField(default=0)
     is_completed = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        lesson = self.lesson
+
+        if self.view_time_seconds > lesson.duration * 0.8:
+            self.is_completed = True
+        super(LessonView, self).save(*args, **kwargs)
