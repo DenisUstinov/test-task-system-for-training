@@ -19,7 +19,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=255)
     link_to_video = models.URLField()
     duration = models.IntegerField()
-    products = models.ManyToManyField(Product, through='LessonProduct')
+    product = models.ManyToManyField(Product, through='LessonProduct')
 
 
 class LessonProduct(models.Model):
@@ -35,8 +35,6 @@ class LessonView(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        lesson = self.lesson
-
-        if self.view_time_seconds > lesson.duration * 0.8:
+        if self.view_time_seconds > self.lesson.duration * 0.8:
             self.is_completed = True
         super(LessonView, self).save(*args, **kwargs)
