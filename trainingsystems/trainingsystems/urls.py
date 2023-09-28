@@ -17,6 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from storage.views import UserLessonView, UserProductLessonView, ProductInfoView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/lessons/<int:user_id>/', UserLessonView.as_view(), name='user-lesson'),
+    path('api/v1/lessons/<int:user_id>/<int:product_id>/', UserProductLessonView.as_view(), name='user-product-lesson'),
+    path('api/v1/info/', ProductInfoView.as_view(), name='info'),
 ]
