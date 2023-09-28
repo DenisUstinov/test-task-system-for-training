@@ -156,10 +156,10 @@ class ProductInfoView(APIView):
 
             product_info.append({
                 'product_id': product.id,
-                'num_users_on_product': num_users_on_product,
-                'total_views': total_views,
-                'total_time_spent': total_time_spent,
-                'purchase_percentage': purchase_percentage
+                'num_users_on_product': num_users_on_product,  # Количество учеников занимающихся на продукте
+                'total_views': total_views,  # Количество просмотренных уроков от всех учеников
+                'total_time_spent': total_time_spent,  # Сколько все ученики потратили времени на просмотр роликов
+                'purchase_percentage': purchase_percentage  # Процент приобретения продукта
             })
 
         return Response(product_info)
