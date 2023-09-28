@@ -28,7 +28,7 @@ class LessonProduct(models.Model):
 
 
 class LessonView(models.Model):
-    lesson_product_id = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     view_time_seconds = models.IntegerField(default=0)
     is_completed = models.BooleanField(default=False)
